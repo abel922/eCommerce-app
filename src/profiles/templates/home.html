@@ -1,0 +1,68 @@
+{%  extends 'base.html' %}
+{%  load staticfiles %}
+{% block styles %}
+<style>
+  .jumbotron{
+    text-align: center;
+  }
+</style>
+{% endblock %}
+
+{% block jumbotron %}
+<div class="jumbotron">
+  <h1>Home page</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row user-dashboard">
+<div class="col-md-6">
+  {% if request.user.is_authenticated %}
+  <div class="user-section">
+    <img width="150" src= "{% static 'img/user.png' %} " class="img-responsive"/>
+    <p style="margin-top:15px"><strong>Hello user:</strong> {{request.user}} </p>
+  </div>
+  {% else %}
+  <form class="login" method="POST" action="{% url 'account_login' %}">
+    {% csrf_token %}
+      <div id="div_id_login" class="form-group"> <label for="id_login" class="control-label  requiredField">
+        Login<span class="asteriskField">*</span> </label>
+        <div class="controls "> <input type="text" name="login" placeholder="Username or e-mail" autofocus="autofocus" class="textinput textInput form-control" required="" id="id_login">
+        </div>
+      </div>
+      <div id="div_id_password" class="form-group">
+        <label for="id_password" class="control-label  requiredField">
+        Password<span class="asteriskField">*</span>
+      </label>
+      <div class="controls "> <input type="password" name="password" placeholder="Password" class="textinput textInput form-control" required="" id="id_password">
+       </div>
+     </div>
+     <div class="form-group">
+        <div id="div_id_remember" class="checkbox">
+          <label for="id_remember" class="">
+            <input type="checkbox" name="remember" class="checkboxinput" id="id_remember">
+            Remember Me
+      </label>
+    </div>
+  </div>
+      <a class="btn btn-link button secondaryAction" href="{% url 'account_reset_password' %}">Forgot Password?</a>
+      <a class="btn btn-success primaryAction" href="{% url 'account_signup' %}">Signup</a>
+      <button class="btn btn-default primaryAction" type="submit">Sign In</button>
+  </form>
+  {% endif %}
+</div>
+<div class="col-md-6">
+    <h2>Checkout with credit card</h2>
+    <ul style="padding-left:0">
+      <li>Payment test with stripe dashboard controlling all users payments.</li>
+      <li>To insert credit card credentials click the button below.</li>
+      <li>First you have to login to click checkout button.</li>
+    </ul>
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'checkout' %}"><button class="btn btn-primary" role="button">Chekout »</button></a>
+    {% else %}
+    <a href="{% url 'checkout' %}"><button class="btn btn-primary"  role="button" disabled>Chekout »</button></a>
+    {% endif %}
+</div>
+</div>
+{% endblock %}

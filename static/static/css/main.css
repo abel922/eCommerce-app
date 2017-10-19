@@ -1,0 +1,23 @@
+.user-section{
+  text-align: center;
+}
+
+.user-section img{
+  margin:0 auto;
+}
+
+.submitbtn{
+  margin-top: 20px;
+}
+
+.user-dashboard, .contact-form, .checkout-payment, .logout, .login , .register{
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 6px;
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(141deg, #00b76b 0%, #0b95a5 51%, #047dab 75%);
+}
